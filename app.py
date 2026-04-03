@@ -6,7 +6,7 @@ Flask-based Web UI for AI Code Reviewer
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-from google import genai
+from groq import Groq
 from flask import Flask, render_template, request, jsonify
 
 # Load environment variables
@@ -15,10 +15,10 @@ load_dotenv()
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
-# Initialize Gemini API
-API_KEY = os.getenv("GEMINI_API_KEY")
+# Initialize Groq API
+API_KEY = os.getenv("GROQ_API_KEY")
 if API_KEY:
-    client = genai.Client(api_key=API_KEY)
+    client = Groq(api_key=API_KEY)
 
 
 # Language configuration with file extensions and style guides
@@ -114,9 +114,9 @@ def detect_language(filename: str) -> str:
 
 
 def review_code(code: str, language: str = 'python') -> str:
-    """Send code to Gemini for review and get feedback."""
+    """Send code to Groq for review and get feedback."""
     if not API_KEY:
-        return "Error: GEMINI_API_KEY environment variable not set."
+        return "Error: GROQ_API_KEY environment variable not set."
     
     if language not in LANGUAGE_CONFIG:
         language = 'python'
@@ -135,13 +135,15 @@ Please review this {lang_config['name']} assignment code:
 {code}
 ```"""
         
-        response = client.models.generate_content(
-            model='gemini-2.0-flash',
-            contents=prompt
+        response = client.chat.completions.create(
+            model='llama-3.1-8b-instant',
+            messages=[{'role': 'user', 'content': prompt}],
+            temperature=0.7,
+            max_tokens=2000
         )
-        return response.text
+        return response.choices[0].message.content
     except Exception as e:
-        return f"Error calling Gemini API: {str(e)}"
+        return f"Error calling Groq API: {str(e)}"
 
 
 @app.route('/')
@@ -163,7 +165,7 @@ def api_review():
         return jsonify({'error': 'No code provided'}), 400
     
     if not API_KEY:
-        return jsonify({'error': 'GEMINI_API_KEY environment variable not set'}), 500
+        return jsonify({'error': 'GROQ_API_KEY environment variable not set'}), 500
     
     review_result = review_code(code, language)
     return jsonify({'review': review_result})
