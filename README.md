@@ -181,7 +181,6 @@ python code_reviewer.py ./assignments/my_code.py
 
 ## Limitations
 
-- Reviews Python code only
 - Works best with assignment code that's less than ~4000 lines
 - Feedback is based on AI analysis; always review suggestions yourself
 - Not a substitute for human code review
