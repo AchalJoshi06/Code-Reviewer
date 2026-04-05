@@ -24,8 +24,8 @@ An intelligent code reviewer powered by **Groq API with Llama 3.1-8b** that anal
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
-   cd SE
+   git clone https://github.com/AchalJoshi06/Code-Reviewer.git
+   cd Code-Reviewer
    ```
 
 2. **Create virtual environment (recommended)**
@@ -302,7 +302,7 @@ Make sure file has correct extension: `.py`, `.js`, `.java`, `.cpp`, etc.
    - Deploy automatically
 
 3. **Access your live app:**
-   - URL: `https://your-service-name.onrender.com`
+   - URL: `https://code-reviewer-3d9h.onrender.com/`
 
 ### Local Production
 
@@ -318,8 +318,8 @@ gunicorn app:app -w 4 -b 0.0.0.0:5000
 
 ```bash
 # 1. Clone repo
-git clone <your-repo-url>
-cd SE
+git clone https://github.com/AchalJoshi06/Code-Reviewer.git
+cd Code-Reviewer
 
 # 2. Create virtual environment
 python -m venv .venv
