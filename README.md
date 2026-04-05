@@ -24,12 +24,8 @@ An intelligent code reviewer powered by **Groq API with Llama 3.1-8b** that anal
 
 1. **Clone the repository**
    ```bash
-<<<<<<< HEAD
    git clone https://github.com/AchalJoshi06/Code-Reviewer.git
    cd Code-Reviewer
-=======
-   https://github.com/AchalJoshi06/Code-Reviewer.git
->>>>>>> cf45addfdf617fc6888a7cacea26e37c9633ad53
    ```
 
 2. **Create virtual environment (recommended)**
